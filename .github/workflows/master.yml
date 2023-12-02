@@ -1,0 +1,25 @@
+name: GitHub CI
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - ".github/workflows/**"
+      - "src/**"
+jobs:
+  job1: # 任务ID
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4 #git pull
+
+      - name: Install and Build
+        run: |
+          npm install
+          npm run build
+
+      - name: Deploy # 部署
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          branch: gh-pages # 部署后提交到那个分支
+          folder: dist # 这里填打包好的目录名称
